@@ -11,10 +11,10 @@ Route::get('/user', function (Request $request) {
 
 Route::controller(UserController::class)->group(function () {
     Route::get('/users', 'index')->name('users.index');
-    Route::get('/users/{id}', 'show')->name('users.show');
+    Route::get('/users/{user}', 'show')->name('users.show');
     Route::post('/users', 'store')->name('users.store');
-    Route::put('/users/{id}', 'update')->name('users.update');
-    Route::delete('/users/{id}', 'destroy')->name('users.destroy');
+    Route::put('/users/{user}', 'update')->name('users.update');
+    Route::delete('/users/{user}', 'destroy')->name('users.destroy');
 });
 
 Route::controller(ChampionController::class)->group(function () {
