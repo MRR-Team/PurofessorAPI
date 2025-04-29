@@ -9,6 +9,6 @@ use Illuminate\Http\JsonResponse;
 class CounterController extends Controller
 {
    public function __invoke(BestCounterAction $bestCounterAction, String $role, Champion $enemyChampion):JsonResponse{
-       return response()->json($bestCounterAction((array)Champion::all(),$role, $enemyChampion));
+       return response()->json($bestCounterAction($role, $enemyChampion));
    }
 }

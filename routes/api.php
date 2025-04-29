@@ -20,10 +20,10 @@ Route::controller(UserController::class)->group(function () {
 
 Route::controller(ChampionController::class)->group(function () {
     Route::get('/champions', 'index')->name('champions.index');
-    Route::get('/champions/{id}', 'show')->name('champions.show');
+    Route::get('/champions/{champion}', 'show')->name('champions.show');
     Route::post('/champions', 'store')->name('champions.store');
-    Route::put('/champions/{id}', 'update')->name('champions.update');
-    Route::delete('/champions/{id}', 'destroy')->name('champions.destroy');
+    Route::put('/champions/{champion}', 'update')->name('champions.update');
+    Route::delete('/champions/{champion}', 'destroy')->name('champions.destroy');
 });
 
 Route::get('/counter/{role}/{enemyChampion}', CounterController::class);
