@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Actions\CreateChampionAction;
-use App\Http\Actions\UpdateChampionAction;
-use App\Http\Requests\CreateChampionRequest;
-use App\Http\Requests\UpdateChampionRequest;
+use App\Http\Actions\Champion\CreateChampionAction;
+use App\Http\Actions\Champion\UpdateChampionAction;
+use App\Http\Requests\Champion\CreateChampionRequest;
+use App\Http\Requests\Champion\UpdateChampionRequest;
 use App\Models\Champion;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class ChampionController extends Controller
 {
