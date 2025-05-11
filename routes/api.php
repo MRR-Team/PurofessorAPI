@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChampionController;
 use App\Http\Controllers\CounterController;
 use App\Http\Controllers\UserController;
@@ -17,6 +18,7 @@ Route::controller(UserController::class)->group(function () {
     Route::put('/users/{user}', 'update')->name('users.update');
     Route::delete('/users/{user}', 'destroy')->name('users.destroy');
 });
+Route::post('/login', [AuthController::class, 'login']);
 
 Route::controller(ChampionController::class)->group(function () {
     Route::get('/champions', 'index')->name('champions.index');
