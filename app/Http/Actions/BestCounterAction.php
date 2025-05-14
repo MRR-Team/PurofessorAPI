@@ -6,7 +6,8 @@ use App\Models\Champion;
 
 class BestCounterAction
 {
-    public function __invoke(String $role, Champion $enemyChampion){
+    public function __invoke(String $role, Champion $enemyChampion): array
+    {
             $maxScore = 0;
             $championsList=Champion::all();
             $bestChampions = [];
