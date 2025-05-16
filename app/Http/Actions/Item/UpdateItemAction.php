@@ -9,6 +9,9 @@ class UpdateItemAction
     public function __invoke(Item $item, array $itemData): Item
     {
         $item->update($itemData);
+        activity()
+            ->performedOn($item)
+            ->log('Item updated');
         return $item;
     }
 }

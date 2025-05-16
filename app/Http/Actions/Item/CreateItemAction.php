@@ -10,7 +10,9 @@ class CreateItemAction
     {
         $item = new Item($itemData);
         $item->save();
-
+        activity()
+            ->performedOn($item)
+            ->log('New item created');
         return $item;
     }
 }

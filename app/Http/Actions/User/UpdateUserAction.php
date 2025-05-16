@@ -9,6 +9,9 @@ class UpdateUserAction
     public function __invoke(User $user, array $userData)
     {
         $user->update($userData);
+        activity()
+            ->performedOn($user)
+            ->log('User updated');
         return $user;
     }
 }

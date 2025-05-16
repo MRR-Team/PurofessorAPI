@@ -16,7 +16,7 @@ Route::get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 
-Route::controller(UserController::class)->group(function () {
+Route::controller(UserController::class)->middleware('auth:sanctum')->group(function () {
     Route::get('/users', 'index')->name('users.index');
     Route::get('/users/{user}', 'show')->name('users.show');
     Route::post('/users', 'store')->name('users.store');
