@@ -24,6 +24,7 @@ class CreateChampionRequest extends FormRequest
         return [
             'name'=>'required|string|max:255',
             'role'=>'required|string|max:255',
+            'isAvailable'=>'required|boolean|default:true',
             'attack_damage'=>'required|boolean',
             'magic_damage'=>'required|boolean',
             'shield'=>'required|boolean',

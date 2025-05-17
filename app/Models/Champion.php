@@ -11,6 +11,7 @@ class Champion extends Model
     protected $fillable = [
         'name',
         'role',
+        'isAvailable',
         'attack_damage',
         'magic_damage',
         'shield',
@@ -34,8 +35,7 @@ class Champion extends Model
         'is_good_against_can_one_shot',
         'is_good_against_late_game',
     ];
-    public static function getById($id, $championsList)
-    {
+    public static function getById($id, $championsList){
         return collect($championsList)->firstWhere('id', $id);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Actions\Champion\AvailabilityChampionAction;
 use App\Http\Actions\Champion\CreateChampionAction;
 use App\Http\Actions\Champion\UpdateChampionAction;
 use App\Http\Requests\Champion\CreateChampionRequest;
@@ -52,6 +53,11 @@ class ChampionController extends Controller
     public function destroy(Champion $champion) : JsonResponse
     {
         return response()->json(['message' => 'Bohater został usunięty.',$champion->delete()]);
+    }
+
+    public function toggleChampionAvailability(Champion $champion, AvailabilityChampionAction $championAvailabilityAction) : JsonResponse
+    {
+        return response()->json($championAvailabilityAction($champion));
     }
 
 }

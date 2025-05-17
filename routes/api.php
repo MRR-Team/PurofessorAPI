@@ -5,6 +5,7 @@ use App\Http\Controllers\BuildController;
 use App\Http\Controllers\ChampionController;
 use App\Http\Controllers\CounterController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\StatsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,7 @@ Route::controller(ChampionController::class)->group(function () {
     Route::post('/champions', 'store')->name('champions.store');
     Route::put('/champions/{champion}', 'update')->name('champions.update');
     Route::delete('/champions/{champion}', 'destroy')->name('champions.destroy');
+    Route::patch('/champions/toggle-availability/{champion}', 'toggleChampionAvailability')->name('champions.availability.update');
 });
 
 Route::controller(ItemController::class)->group(function () {
@@ -42,3 +44,4 @@ Route::controller(ItemController::class)->group(function () {
 
 Route::get('/counter/{role}/{enemyChampion}', CounterController::class);
 Route::get('/build/{enemyChampion}/against/{champion}', BuildController::class);
+Route::get('/stats/counter-search', StatsController::class)->name('stats.counter-search');
