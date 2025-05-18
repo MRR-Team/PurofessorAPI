@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BuildController;
 use App\Http\Controllers\ChampionController;
 use App\Http\Controllers\CounterController;
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\StatsController;
 use App\Http\Controllers\UserController;
@@ -16,6 +17,8 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+Route::get('/auth/redirect/google', [GoogleAuthController::class, 'redirectToGoogle']);
+Route::get('/auth/callback/google', [GoogleAuthController::class, 'handleGoogleCallback']);
 
 Route::controller(UserController::class)->middleware('auth:sanctum')->group(function () {
     Route::get('/users', 'index')->name('users.index');
