@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logo
 Route::get('/auth/redirect/google', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('/auth/callback/google', [GoogleAuthController::class, 'handleGoogleCallback']);
 
-Route::controller(UserController::class)->middleware('auth:sanctum')->group(function () {
+Route::controller(UserController::class)->group(function () {
     Route::get('/users', 'index')->name('users.index');
     Route::get('/users/{user}', 'show')->name('users.show');
     Route::post('/users', 'store')->name('users.store');
