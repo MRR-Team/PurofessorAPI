@@ -35,6 +35,7 @@ Route::controller(ChampionController::class)->group(function () {
     Route::put('/champions/{champion}', 'update')->name('champions.update');
     Route::delete('/champions/{champion}', 'destroy')->name('champions.destroy');
     Route::patch('/champions/toggle-availability/{champion}', 'toggleChampionAvailability')->name('champions.availability.update');
+    Route::get('/available-champions', 'availableChampions')->name('champions.available');
 });
 
 Route::controller(ItemController::class)->group(function () {

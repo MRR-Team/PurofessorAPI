@@ -60,4 +60,9 @@ class ChampionController extends Controller
         return response()->json($championAvailabilityAction($champion));
     }
 
+    public function availableChampions() : JsonResponse
+    {
+        return response()->json(Champion::where('isAvailable', true)->get());
+    }
+
 }
