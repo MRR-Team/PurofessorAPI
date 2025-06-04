@@ -29,13 +29,13 @@ Route::controller(UserController::class)->group(function () {
 });
 
 Route::controller(ChampionController::class)->group(function () {
+    Route::patch('/champions/{champion}/toggle-availability', 'toggleChampionAvailability');
+    Route::get('/available-champions', 'availableChampions')->name('champions.available');
     Route::get('/champions', 'index')->name('champions.index');
     Route::get('/champions/{champion}', 'show')->name('champions.show');
     Route::post('/champions', 'store')->name('champions.store');
     Route::put('/champions/{champion}', 'update')->name('champions.update');
     Route::delete('/champions/{champion}', 'destroy')->name('champions.destroy');
-    Route::patch('/champions/toggle-availability/{champion}', 'toggleChampionAvailability')->name('champions.availability.update');
-    Route::get('/available-champions', 'availableChampions')->name('champions.available');
 });
 
 Route::controller(ItemController::class)->group(function () {
