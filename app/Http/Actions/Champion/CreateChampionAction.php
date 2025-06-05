@@ -10,6 +10,7 @@ class CreateChampionAction
     {
         $champion = new Champion($championData);
         $champion->save();
+
         activity()
             ->performedOn($champion)
             ->log('New champion created');

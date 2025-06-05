@@ -44,7 +44,7 @@ class ChampionController extends Controller
     public function update(Champion $champion, UpdateChampionRequest $request, UpdateChampionAction $updateChampionAction) : JsonResponse
     {
         return response()->json(['message' => 'zaktualizowano pomyślnie',
-            'champion' => $updateChampionAction($champion,$request->validated())], 201);
+            'champion' => $updateChampionAction($champion,$request->validated())]);
     }
 
     /**
@@ -52,7 +52,7 @@ class ChampionController extends Controller
      */
     public function destroy(Champion $champion) : JsonResponse
     {
-        return response()->json(['message' => 'Bohater został usunięty.',$champion->delete()]);
+        return response()->json(['message' => 'Bohater został usunięty.',$champion->delete()],204);
     }
 
     public function toggleChampionAvailability(Champion $champion, AvailabilityChampionAction $championAvailabilityAction) : JsonResponse

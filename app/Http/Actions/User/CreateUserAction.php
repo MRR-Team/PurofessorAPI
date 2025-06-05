@@ -3,6 +3,7 @@
 namespace App\Http\Actions\User;
 
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 
 class CreateUserAction
 {
@@ -10,6 +11,7 @@ class CreateUserAction
     {
         $user = new User($userData);
         $user->save();
+        $user->sendEmailVerificationNotification();
         activity()
             ->performedOn($user)
             ->withProperties(['email' => $user->email])
