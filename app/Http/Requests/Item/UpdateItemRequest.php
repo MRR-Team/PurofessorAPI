@@ -23,7 +23,7 @@ class UpdateItemRequest extends FormRequest
     {
         return [
             'name'=>'sometimes|required|string|max:255',
-            'role'=>'sometimes|required|string|max:255',
+            'role'=>'sometimes|required|string|in:mage,adc,tank,supp,brawler,assasin',
             'attack_damage'=>'sometimes|required|boolean',
             'magic_damage'=>'sometimes|required|boolean',
             'shield'=>'sometimes|required|boolean',

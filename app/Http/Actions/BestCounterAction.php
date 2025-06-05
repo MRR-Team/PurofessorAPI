@@ -6,7 +6,7 @@ use App\Models\Champion;
 
 class BestCounterAction
 {
-    public function __invoke(String $role, Champion $enemyChampion): array
+    public function __invoke(String $position, Champion $enemyChampion): array
     {
             $maxScore = 0;
             $championsList=Champion::all();
@@ -14,7 +14,7 @@ class BestCounterAction
 
             foreach ($championsList as $champion) {
 
-                if ($enemyChampion->id !== $champion->id || $champion->role !== $role || $champion->isAvailable) {
+                if ($enemyChampion->id !== $champion->id || $champion->position !== $position || $champion->isAvailable) {
                     $score = 0;
 
                     if ($enemyChampion->attack_damage) $score += $champion->is_good_against_attack_damage;
@@ -43,7 +43,7 @@ class BestCounterAction
             ->withProperties([
                 'enemy_champion_id' => $enemyChampion->id,
                 'enemy_champion_name' => $enemyChampion->name,
-                'role_searched' => $role,
+                'role_searched' => $position,
             ])
             ->log("Counter search performed on {$enemyChampion->name}");
             return $bestChampions;

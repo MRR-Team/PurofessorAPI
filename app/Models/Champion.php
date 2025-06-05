@@ -10,6 +10,7 @@ class Champion extends Model
     use HasFactory;
     protected $fillable = [
         'name',
+        'position',
         'role',
         'isAvailable',
         'attack_damage',

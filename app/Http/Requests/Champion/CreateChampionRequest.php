@@ -23,7 +23,8 @@ class CreateChampionRequest extends FormRequest
     {
         return [
             'name'=>'required|string|max:255',
-            'role'=>'required|string|in:mid,top,jungle,bot,supp',
+            'position'=>'required|in:mid,top,jungle,bot,support',
+            'role'=>'required|string|in:mage,adc,tank,supp,brawler,assasin',
             'isAvailable'=>'required|boolean',
             'attack_damage'=>'required|boolean',
             'magic_damage'=>'required|boolean',

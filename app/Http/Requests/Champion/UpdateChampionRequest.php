@@ -23,7 +23,8 @@ class UpdateChampionRequest extends FormRequest
     {
         return [
             'name'=>'sometimes|required|string|max:255',
-            'role'=>'sometimes|required|string|in:mid,top,jungle,bot,supp',
+            'position'=>'sometimes|in:mid,top,jungle,bot,support',
+            'role'=>'sometimes|string|in:mage,adc,tank,supp,brawler,assasin',
             'attack_damage'=>'sometimes|required|boolean',
             'magic_damage'=>'sometimes|required|boolean',
             'shield'=>'sometimes|required|boolean',

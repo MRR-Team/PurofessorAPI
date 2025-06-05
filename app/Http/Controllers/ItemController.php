@@ -55,6 +55,6 @@ class ItemController extends Controller
 
         return response()->json([
             'message' => 'Przedmiot został usunięty.'
-        ]);
+        ],204);
     }
 }

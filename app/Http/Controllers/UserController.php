@@ -50,6 +50,6 @@ class UserController extends Controller
      */
     public function destroy(User $user): JsonResponse
     {
-        return response()->json(['message' => 'Użytkownik został usunięty.',$user->delete()]);
+        return response()->json(['message' => 'Użytkownik został usunięty.',$user->delete()],204);
     }
 }

@@ -1,11 +1,11 @@
 <?php
 use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
-test('it creates a champion with valid data', function () {
+
+test('it creates a item with valid data', function () {
     $data = [
         'name' => 'Lux',
         'role' => 'mage',
-        'isAvailable' => true,
         'attack_damage' => false,
         'magic_damage' => true,
         'shield' => true,
@@ -28,19 +28,18 @@ test('it creates a champion with valid data', function () {
         'is_good_against_poke' => '2',
         'is_good_against_can_one_shot' => '2',
         'is_good_against_late_game' => '2',
-        'position'=>'mid'
     ];
 
-    $response = $this->postJson('/api/champions', $data);
+    $response = $this->postJson('/api/items', $data);
 
     $response->assertCreated()
         ->assertJsonFragment(['name' => 'Lux']);
 
-    $this->assertDatabaseHas('champions', ['name' => 'Lux']);
+    $this->assertDatabaseHas('items', ['name' => 'Lux']);
 });
 
 test('it fails when required fields are missing', function () {
-    $response = $this->postJson('/api/champions', []);
+    $response = $this->postJson('/api/items', []);
 
     $response->assertStatus(422)
         ->assertJsonValidationErrors(['name', 'role']);
@@ -53,7 +52,7 @@ test('it fails when boolean fields are invalid', function () {
         'shield' => 'not-a-boolean',
     ];
 
-    $response = $this->postJson('/api/champions', $data);
+    $response = $this->postJson('/api/items', $data);
 
     $response->assertStatus(422)
         ->assertJsonValidationErrors(['shield']);
@@ -65,20 +64,8 @@ test('it fails when role is invalid', function () {
         'role' => 'topo',
     ];
 
-    $response = $this->postJson('/api/champions', $data);
+    $response = $this->postJson('/api/items', $data);
 
     $response->assertStatus(422)
         ->assertJsonValidationErrors(['role']);
-});
-
-test('it fails when position invalid', function () {
-    $data = [
-        'name' => 'Teemo',
-        'position' => 'topo',
-    ];
-
-    $response = $this->postJson('/api/champions', $data);
-
-    $response->assertStatus(422)
-        ->assertJsonValidationErrors(['position']);
 });

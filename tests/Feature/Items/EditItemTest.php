@@ -1,11 +1,12 @@
 <?php
 
 use App\Models\Champion;
+use App\Models\Item;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 test('it updates a champion with valid data', function () {
-    $champion = Champion::create([
-        'name' => 'Lux', 'role' => 'mage', 'isAvailable' => true, 'attack_damage' => false, 'magic_damage' => true, 'shield' => true, 'heals' => false, 'tanky' => false, 'squishy' => true, 'has_cc' => true, 'dash' => false, 'poke' => true, 'can_one_shot' => false, 'late_game' => true, 'is_good_against_attack_damage' => '2', 'is_good_against_magic_damage' => '2', 'is_good_against_shield' => '2', 'is_good_against_heals' => '2', 'is_good_against_tanky' => '2', 'is_good_against_squish' => '2', 'is_good_against_has_cc' => '2', 'is_good_against_dash' => '2', 'is_good_against_poke' => '2', 'is_good_against_can_one_shot' => '2', 'is_good_against_late_game' => '2','position'=>'mid'
+    $item = Item::create([
+        'name' => 'Lux', 'role' => 'mage', 'attack_damage' => false, 'magic_damage' => true, 'shield' => true, 'heals' => false, 'tanky' => false, 'squishy' => true, 'has_cc' => true, 'dash' => false, 'poke' => true, 'can_one_shot' => false, 'late_game' => true, 'is_good_against_attack_damage' => '2', 'is_good_against_magic_damage' => '2', 'is_good_against_shield' => '2', 'is_good_against_heals' => '2', 'is_good_against_tanky' => '2', 'is_good_against_squish' => '2', 'is_good_against_has_cc' => '2', 'is_good_against_dash' => '2', 'is_good_against_poke' => '2', 'is_good_against_can_one_shot' => '2', 'is_good_against_late_game' => '2',
     ]);
 
     $data = [
@@ -34,22 +35,20 @@ test('it updates a champion with valid data', function () {
         'is_good_against_poke' => '1',
         'is_good_against_can_one_shot' => '1',
         'is_good_against_late_game' => '1',
-        'position'=>'mid'
     ];
 
-    $response = $this->putJson("/api/champions/{$champion->id}", $data);
+    $response = $this->putJson("/api/items/{$item->id}", $data);
 
     $response->assertOk()
         ->assertJsonFragment(['name' => 'Lux Updated']);
 
-    $this->assertDatabaseHas('champions', ['id' => $champion->id, 'name' => 'Lux Updated']);
+    $this->assertDatabaseHas('items', ['id' => $item->id, 'name' => 'Lux Updated']);
 });
 
 test('it fails to update when boolean fields are invalid', function () {
-    $champion = Champion::create([
+    $item = Item::create([
         'name' => 'Teemo',
         'role' => 'mage',
-        'isAvailable' => true,
         'attack_damage' => true,
         'magic_damage' => false,
         'shield' => true,
@@ -72,24 +71,22 @@ test('it fails to update when boolean fields are invalid', function () {
         'is_good_against_poke' => '2',
         'is_good_against_can_one_shot' => '2',
         'is_good_against_late_game' => '2',
-        'position'=>'mid'
     ]);
 
     $data = [
         'shield' => 'not-a-boolean',
     ];
 
-    $response = $this->putJson("/api/champions/{$champion->id}", $data);
+    $response = $this->putJson("/api/items/{$item->id}", $data);
 
     $response->assertStatus(422)
         ->assertJsonValidationErrors(['shield']);
 });
 
 test('it fails to update when role is invalid', function () {
-    $champion = Champion::create([
+    $item = Item::create([
         'name' => 'Teemo',
         'role' => 'mage',
-        'isAvailable' => true,
         'attack_damage' => true,
         'magic_damage' => false,
         'shield' => true,
@@ -112,14 +109,13 @@ test('it fails to update when role is invalid', function () {
         'is_good_against_poke' => '2',
         'is_good_against_can_one_shot' => '2',
         'is_good_against_late_game' => '2',
-        'position'=>'mid'
     ]);
 
     $data = [
         'role' => 'invalid-role',
     ];
 
-    $response = $this->putJson("/api/champions/{$champion->id}", $data);
+    $response = $this->putJson("/api/items/{$item->id}", $data);
 
     $response->assertStatus(422)
         ->assertJsonValidationErrors(['role']);

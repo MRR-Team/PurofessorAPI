@@ -23,7 +23,7 @@ class CreateItemRequest extends FormRequest
     {
         return [
             'name'=>'required|string|max:255',
-            'role'=>'required|string|max:255',
+            'role'=>'required|string|in:mage,adc,tank,supp,brawler,assasin',
             'attack_damage'=>'required|boolean',
             'magic_damage'=>'required|boolean',
             'shield'=>'required|boolean',

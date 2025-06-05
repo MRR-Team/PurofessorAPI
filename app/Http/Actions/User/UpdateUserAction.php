@@ -6,7 +6,7 @@ use App\Models\User;
 
 class UpdateUserAction
 {
-    public function __invoke(User $user, array $userData)
+    public function __invoke(User $user, array $userData): User
     {
         $user->update($userData);
         activity()
