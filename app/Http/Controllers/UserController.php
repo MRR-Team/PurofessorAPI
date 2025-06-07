@@ -6,11 +6,18 @@ use App\Http\Actions\User\CreateUserAction;
 use App\Http\Actions\User\UpdateUserAction;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class UserController extends Controller
 {
+    use AuthorizesRequests;
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -20,20 +27,11 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(CreateUserRequest $request, CreateUserAction $createUserAction): JsonResponse
-    {
-        return response()->json(['message' => 'Użytkownik utworzony pomyślnie',
-            'user' => $createUserAction($request->validated())], 201);
-    }
-
-    /**
      * Display the specified resource.
      */
     public function show(User $user): JsonResponse
     {
-        return response()->json($user);
+        return response()->json(new UserResource($user));
     }
 
     /**

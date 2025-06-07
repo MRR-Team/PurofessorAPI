@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Actions\User\CreateUserAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\CreateUserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\JsonResponse;
@@ -27,12 +30,18 @@ class AuthController extends Controller
             ], 401);
         }
 
+        if (is_null($user->email_verified_at)) {
+            return response()->json([
+                'message' => 'Adres email nie został zweryfikowany.'
+            ], 401);
+        }
+
         $token = $user->createToken('api_token')->plainTextToken;
 
         return response()->json([
             'message' => 'Zalogowano pomyślnie.',
             'token' => $token,
-            'user' => $user,
+            'user' => new UserResource($user),
         ]);
     }
     public function logout(Request $request)
@@ -42,6 +51,10 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Wylogowano pomyślnie.'
         ]);
+    }
+    public function register(CreateUserRequest $request, CreateUserAction $createUserAction):JsonResponse{
+        return response()->json(['message' => 'Użytkownik utworzony pomyślnie',
+            'user' => $createUserAction($request->validated())], 201);
     }
 
     public function verify($id, Request $request): JsonResponse
