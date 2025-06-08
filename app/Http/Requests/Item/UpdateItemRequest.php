@@ -22,8 +22,9 @@ class UpdateItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'sometimes|required|string|max:255',
-            'role'=>'sometimes|required|string|in:mage,adc,tank,supp,brawler,assasin',
+            'photo'=>'sometimes|required|string|max:255',
+            'name'=>'sometimes|unique|required|string|max:255',
+            'role'=>'sometimes|string|in:mage,adc,tank,supp,fighter,assasin',
             'attack_damage'=>'sometimes|required|boolean',
             'magic_damage'=>'sometimes|required|boolean',
             'shield'=>'sometimes|required|boolean',

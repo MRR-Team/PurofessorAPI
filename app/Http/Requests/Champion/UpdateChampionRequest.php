@@ -22,9 +22,10 @@ class UpdateChampionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'sometimes|required|string|max:255',
+            'photo'=>'sometimes|required|string|max:255',
+            'name'=>'sometimes|unique|required|string|max:255',
             'position'=>'sometimes|in:mid,top,jungle,bot,support',
-            'role'=>'sometimes|string|in:mage,adc,tank,supp,brawler,assasin',
+            'role'=>'sometimes|string|in:mage,adc,tank,supp,fighter,assasin',
             'attack_damage'=>'sometimes|required|boolean',
             'magic_damage'=>'sometimes|required|boolean',
             'shield'=>'sometimes|required|boolean',

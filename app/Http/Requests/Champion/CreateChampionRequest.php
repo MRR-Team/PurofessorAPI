@@ -22,9 +22,10 @@ class CreateChampionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required|string|max:255',
+            'photo'=>'required|string|max:255',
+            'name'=>'required|unique|string|max:255',
             'position'=>'required|in:mid,top,jungle,bot,support',
-            'role'=>'required|string|in:mage,adc,tank,supp,brawler,assasin',
+            'role'=>'required|string|in:mage,adc,tank,supp,fighter,assasin',
             'isAvailable'=>'required|boolean',
             'attack_damage'=>'required|boolean',
             'magic_damage'=>'required|boolean',

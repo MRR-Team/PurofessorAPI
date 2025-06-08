@@ -22,8 +22,9 @@ class CreateItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required|string|max:255',
-            'role'=>'required|string|in:mage,adc,tank,supp,brawler,assasin',
+            'photo'=>'required|string|max:255',
+            'name'=>'required|unique|string|max:255',
+            'role'=>'required|string|in:mage,adc,tank,supp,fighter,assasin',
             'attack_damage'=>'required|boolean',
             'magic_damage'=>'required|boolean',
             'shield'=>'required|boolean',

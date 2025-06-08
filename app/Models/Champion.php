@@ -9,6 +9,7 @@ class Champion extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'photo',
         'name',
         'position',
         'role',

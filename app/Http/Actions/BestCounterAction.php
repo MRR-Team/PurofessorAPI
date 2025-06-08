@@ -14,7 +14,7 @@ class BestCounterAction
 
             foreach ($championsList as $champion) {
 
-                if ($enemyChampion->id !== $champion->id || $champion->position !== $position || $champion->isAvailable) {
+                if ($enemyChampion->id !== $champion->id && $champion->position == $position && $champion->isAvailable) {
                     $score = 0;
 
                     if ($enemyChampion->attack_damage) $score += $champion->is_good_against_attack_damage;

@@ -33,6 +33,15 @@ class BestItemsAction
             }
         }
         usort($scoredItems, fn($a, $b) => $b['score'] <=> $a['score']);
+        activity()
+            ->useLog('build-search')
+            ->withProperties([
+                'enemy_champion_id' => $enemyChampion->id,
+                'enemy_champion_name' => $enemyChampion->name,
+                'champion_id' => $champion->id,
+                'champion_name' => $champion->name,
+            ])
+            ->log("Build search performed with {$enemyChampion->name} and {$champion->name} ");
         return array_slice(array_column($scoredItems, 'item'), 0, 5);
     }
 }
