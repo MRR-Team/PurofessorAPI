@@ -55,7 +55,7 @@ Route::middleware('auth:sanctum')->controller(UserController::class)->group(func
 
 Route::get('/counter/{role}/{enemyChampion}', CounterController::class);
 Route::middleware('auth:sanctum')->get('/build/{enemyChampion}/against/{champion}', BuildController::class);
-Route::middleware('role:admin')->get('/stats/counter-search', StatsController::class)->name('stats.counter-search');
+Route::middleware(['auth:sanctum','role:admin'])->get('/stats/counter-search', StatsController::class)->name('stats.counter-search');
 
 Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verify'])
     ->middleware(['signed', 'throttle:6,1'])
