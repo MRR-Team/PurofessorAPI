@@ -10,9 +10,17 @@ use App\Http\Controllers\StatsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/login', [AuthController::class, 'login']);
-Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
-Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::controller(AuthController::class)->group(function () {
+    Route::post('/login', 'login');
+    Route::middleware('auth:sanctum')->post('/logout', 'logout');
+    Route::post('/register', 'register')->name('register');
+    Route::post('/forgot-password',  'sendResetLinkEmail');
+    Route::post('/reset-password',  'reset');
+    Route::get('/reset-password/{token}', function ($token) {
+        return redirect("https://frontend.example.com/reset-password?token=$token");
+    })->name('password.reset');
+});
+
 Route::get('/auth/redirect/google', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('/auth/callback/google', [GoogleAuthController::class, 'handleGoogleCallback']);
 
