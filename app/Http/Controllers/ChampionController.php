@@ -17,8 +17,7 @@ class ChampionController extends Controller
      */
     public function index() : JsonResponse
     {
-        return response()->json(Champion::all());
-
+        return response()->json(Champion::orderBy('name')->get());
     }
 
     /**
@@ -62,7 +61,7 @@ class ChampionController extends Controller
 
     public function availableChampions() : JsonResponse
     {
-        return response()->json(Champion::where('isAvailable', true)->get());
+        return response()->json(Champion::where('isAvailable', true)->orderBy('name')->get());
     }
 
 }

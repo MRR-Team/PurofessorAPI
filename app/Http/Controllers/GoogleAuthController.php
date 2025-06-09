@@ -23,6 +23,7 @@ class GoogleAuthController extends Controller
         ], [
             'name' => $googleUser->getName(),
             'password' => bcrypt(Str::random(24)),
+            'email_verified_at' => now()
         ]);
 
         Auth::login($user);
