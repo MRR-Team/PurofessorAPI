@@ -6,6 +6,7 @@ use App\Http\Controllers\ChampionController;
 use App\Http\Controllers\CounterController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\StatsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -64,3 +65,8 @@ Route::middleware(['auth:sanctum','role:admin'])->controller(StatsController::cl
 Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verify'])
     ->middleware(['signed', 'throttle:6,1'])
     ->name('verification.verify');
+
+Route::middleware('auth:sanctum')->controller(NotificationController::class)->group(function () {
+    Route::get('/notifications', 'getUserNotifications');
+    Route::middleware('role:admin')->post('/notifications/send', 'send');
+});
