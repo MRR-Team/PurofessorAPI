@@ -40,5 +40,9 @@ return [
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
+    'riot' => [
+        'key' => env('RIOT_API_KEY'),
+    ],
+
 
 ];

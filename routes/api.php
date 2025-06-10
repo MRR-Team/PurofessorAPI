@@ -7,6 +7,7 @@ use App\Http\Controllers\CounterController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\RiotStatusController;
 use App\Http\Controllers\StatsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -59,7 +60,7 @@ Route::middleware('auth:sanctum')->get('/build/{enemyChampion}/against/{champion
 
 Route::middleware(['auth:sanctum','role:admin'])->controller(StatsController::class)->group(function () {
     Route::get('/stats/counter-search', 'SearchStats')->name('stats.counter-search');
-    Route::get('/stats/logs', 'Logs')->name('stats.counter-search');
+    Route::get('/stats/logs', 'Logs')->name('stats.logs');
 });
 
 Route::get('/email/verify/{id}/{hash}', [AuthController::class, 'verify'])
@@ -70,3 +71,5 @@ Route::middleware('auth:sanctum')->controller(NotificationController::class)->gr
     Route::get('/notifications', 'getUserNotifications');
     Route::middleware('role:admin')->post('/notifications/send', 'send');
 });
+
+Route::get('/riot/status/{region}', [RiotStatusController::class, 'show']);
