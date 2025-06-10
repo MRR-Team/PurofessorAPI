@@ -28,10 +28,7 @@ class GoogleAuthController extends Controller
 
         Auth::login($user);
 
-        return response()->json([
-            'message' => 'Zalogowano przez Google',
-            'user' => $user,
-            'token' => $user->createToken('google-login')->plainTextToken,
-        ]);
+        return redirect("purofessor-desktop://auth-callback?token=" . $user->createToken('google-login')->plainTextToken);
+
     }
 }
