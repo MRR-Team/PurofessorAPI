@@ -28,7 +28,9 @@ class GoogleAuthController extends Controller
 
         Auth::login($user);
 
-        return redirect("purofessor-desktop://auth-callback?token=" . $user->createToken('google-login')->plainTextToken);
+        $token = $user->createToken('google-login')->plainTextToken;
 
+        $redirectUrl = request('redirect_uri') ?? 'http://localhost:5005/callback';
+        return redirect($redirectUrl . '?token=' . $token);
     }
 }
