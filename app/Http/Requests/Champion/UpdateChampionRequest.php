@@ -23,7 +23,7 @@ class UpdateChampionRequest extends FormRequest
     {
         return [
             'photo'=>'sometimes|required|string|max:255',
-            'name'=>'sometimes|unique|required|string|max:255',
+            'name'=>'sometimes|required|string|max:255,',
             'position'=>'sometimes|in:mid,top,jungle,bot,support',
             'role'=>'sometimes|string|in:mage,adc,tank,supp,fighter,assasin',
             'attack_damage'=>'sometimes|required|boolean',

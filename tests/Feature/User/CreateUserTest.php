@@ -11,7 +11,7 @@ test('it creates a user with valid data', function () {
         'password' => 'secret123',
     ];
 
-    $response = $this->postJson('/api/users', $data);
+    $response = $this->postJson('/api/register', $data);
 
     $response->assertCreated()
         ->assertJsonFragment(['email' => 'jan@example.com']);
@@ -20,7 +20,7 @@ test('it creates a user with valid data', function () {
 });
 
 test('it fails when required fields are missing', function () {
-    $response = $this->postJson('/api/users', []);
+    $response = $this->postJson('/api/register', []);
 
     $response->assertStatus(422)
         ->assertJsonValidationErrors(['name', 'email', 'password']);
@@ -33,7 +33,7 @@ test('it fails when email is invalid', function () {
         'password' => 'secret123',
     ];
 
-    $response = $this->postJson('/api/users', $data);
+    $response = $this->postJson('/api/register', $data);
 
     $response->assertStatus(422)
         ->assertJsonValidationErrors(['email']);
@@ -46,7 +46,7 @@ test('it fails when password is too short', function () {
         'password' => '123',
     ];
 
-    $response = $this->postJson('/api/users', $data);
+    $response = $this->postJson('/api/register', $data);
 
     $response->assertStatus(422)
         ->assertJsonValidationErrors(['password']);

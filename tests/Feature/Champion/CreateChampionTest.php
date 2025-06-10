@@ -1,7 +1,18 @@
 <?php
+
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
+use Spatie\Permission\Models\Role;
+
 uses(RefreshDatabase::class);
+beforeEach(function () {
+    Role::firstOrCreate(['name' => 'admin']);
+});
 test('it creates a champion with valid data', function () {
+    $admin = User::factory()->create();
+    $admin->assignRole('admin');
+    Sanctum::actingAs($admin, ['*']);
     $data = [
         'name' => 'Lux',
         'role' => 'mage',
@@ -28,7 +39,8 @@ test('it creates a champion with valid data', function () {
         'is_good_against_poke' => '2',
         'is_good_against_can_one_shot' => '2',
         'is_good_against_late_game' => '2',
-        'position'=>'mid'
+        'position'=>'mid',
+        'photo'=>'1'
     ];
 
     $response = $this->postJson('/api/champions', $data);
@@ -40,6 +52,9 @@ test('it creates a champion with valid data', function () {
 });
 
 test('it fails when required fields are missing', function () {
+    $admin = User::factory()->create();
+    $admin->assignRole('admin');
+    Sanctum::actingAs($admin, ['*']);
     $response = $this->postJson('/api/champions', []);
 
     $response->assertStatus(422)
@@ -47,6 +62,9 @@ test('it fails when required fields are missing', function () {
 });
 
 test('it fails when boolean fields are invalid', function () {
+    $admin = User::factory()->create();
+    $admin->assignRole('admin');
+    Sanctum::actingAs($admin, ['*']);
     $data = [
         'name' => 'Teemo',
         'position' => 'top',
@@ -60,6 +78,9 @@ test('it fails when boolean fields are invalid', function () {
 });
 
 test('it fails when role is invalid', function () {
+    $admin = User::factory()->create();
+    $admin->assignRole('admin');
+    Sanctum::actingAs($admin, ['*']);
     $data = [
         'name' => 'Teemo',
         'role' => 'topo',
@@ -72,6 +93,9 @@ test('it fails when role is invalid', function () {
 });
 
 test('it fails when position invalid', function () {
+    $admin = User::factory()->create();
+    $admin->assignRole('admin');
+    Sanctum::actingAs($admin, ['*']);
     $data = [
         'name' => 'Teemo',
         'position' => 'topo',
@@ -81,4 +105,10 @@ test('it fails when position invalid', function () {
 
     $response->assertStatus(422)
         ->assertJsonValidationErrors(['position']);
+});
+test('it fails when non admin tries to create champion', function () {
+    $fakeAdmin = User::factory()->create();
+    Sanctum::actingAs($fakeAdmin, ['*']);
+    $response = $this->postJson('/api/champions', []);
+    $response->assertStatus(403);
 });
