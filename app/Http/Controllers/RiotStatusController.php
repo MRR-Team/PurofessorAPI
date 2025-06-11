@@ -7,7 +7,7 @@ class RiotStatusController extends Controller
 {
     public function show(string $region)
     {
-        $validRegions = ['euw1', 'na1', 'EUN1', 'kr', 'br1', 'jp1', 'oc1', 'ru', 'tr1'];
+        $validRegions = ['euw1', 'na1', 'eun1', 'kr', 'br1', 'jp1', 'oc1', 'ru', 'tr1'];
         if (!in_array($region, $validRegions)) {
             return response()->json(['error' => 'Invalid region specified.'], 400);
         }

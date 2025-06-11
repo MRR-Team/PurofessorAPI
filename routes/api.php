@@ -10,6 +10,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RiotStatusController;
 use App\Http\Controllers\StatsController;
 use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthController::class)->group(function () {
@@ -21,6 +22,9 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('/reset-password/{token}', function ($token) {
         return redirect("https://frontend.example.com/reset-password?token=$token");
     })->name('password.reset');
+    Route::middleware('auth:sanctum')->get('/users/me', function (Request $request) {
+        return $request->user();
+    });
 });
 
 Route::get('/auth/redirect/google', [GoogleAuthController::class, 'redirectToGoogle']);
